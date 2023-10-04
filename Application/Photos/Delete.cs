@@ -21,11 +21,11 @@ namespace Application.Photos
         {
             private readonly IUserAccessor _userAccessor;
             private readonly DataContext _context;
-            private readonly IPhotoAccessor _photoAccessorm;
-            public Handler(DataContext context, IPhotoAccessor photoAccessorm, IUserAccessor userAccessor)
+            private readonly IPhotoAccessor _photoAccessor;
+            public Handler(DataContext context, IPhotoAccessor photoAccessor, IUserAccessor userAccessor)
             {
                 _context = context;
-                _photoAccessorm = photoAccessorm;
+                _photoAccessor = photoAccessor;
                 _userAccessor = userAccessor;
             }
 
@@ -42,7 +42,7 @@ namespace Application.Photos
 
                 if (photo.IsMain) return Result<Unit>.Failure("You cannot delete your main photo");
 
-                var result = await _photoAccessorm.DeletePhoto(photo.Id);
+                var result = await _photoAccessor.DeletePhoto(photo.Id);
                 
                 if(result == null) return Result<Unit>.Failure("Problem deleting photo from Cloudinary");
 
